@@ -34,7 +34,7 @@
 # For Minecraft 1.11</textarea>
 					</td>
 					<td>
-						<textarea id="GENC_Output" class="" style="resize:none; height:3in; width:100%; font-family:monospace" wrap="off" title="Output will appear here" class="mcfield"></textarea>
+						<textarea id="GENC_Output" class="mcfield" style="resize:none; height:3in; width:100%; font-family:monospace" wrap="off" title="Output will appear here" ass="mcfield"></textarea>
 
 					</td>
 				</tr>
@@ -69,11 +69,11 @@
 				var res = GENC_Begin;
 				for (var i = 0; i < commands.length; i++) {
 					var escaped = commands[i].replace(/\\/g,"\\\\").replace(/\"/g,"\\\"");
-					//if (escaped === commands[i] && commands[i].search(",") < 0) {
-					//	res += GENC_Front + escaped + GENC_End;
-					//} else {
+					if (escaped === commands[i] && commands[i].search(",") < 0) {
+						res += GENC_Front + escaped + GENC_End;
+					} else {
 						res += GENC_Front + "\"" + escaped + "\"" + GENC_End;
-					//}
+					}
 				}
 				res += GENC_Finish;
 				return res;
@@ -99,11 +99,7 @@
 						}
 					}
 				}
-				cleantype = document.GENC_Form.GENC_Clean.value;
-				if (cleantype === "All") {
-					arr = arr.concat(GENC_CleanBlocks);
-				}
-				arr = arr.concat(GENC_CleanCarts);
+				
 				var res = GENC_GenCommand(arr);
 				document.getElementById("GENC_Output").value = res;
 				var len = res.length;
